@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		69CEE25E1C39F8A800FBF289 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE25D1C39F8A800FBF289 /* AppDelegate.swift */; };
-		69CEE2601C39F8A800FBF289 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE25F1C39F8A800FBF289 /* ViewController.swift */; };
+		69CEE2601C39F8A800FBF289 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE25F1C39F8A800FBF289 /* LoginViewController.swift */; };
 		69CEE2631C39F8A800FBF289 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69CEE2611C39F8A800FBF289 /* Main.storyboard */; };
 		69CEE2651C39F8A800FBF289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69CEE2641C39F8A800FBF289 /* Assets.xcassets */; };
 		69CEE2681C39F8A800FBF289 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69CEE2661C39F8A800FBF289 /* LaunchScreen.storyboard */; };
 		69CEE2731C39F8A800FBF289 /* OnTheMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2721C39F8A800FBF289 /* OnTheMapTests.swift */; };
 		69CEE27E1C39F8A800FBF289 /* OnTheMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE27D1C39F8A800FBF289 /* OnTheMapUITests.swift */; };
+		69CEE28C1C39F9CC00FBF289 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE28B1C39F9CC00FBF289 /* MapViewController.swift */; };
+		69CEE28E1C39F9F100FBF289 /* InfoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE28D1C39F9F100FBF289 /* InfoPostViewController.swift */; };
+		69CEE2921C3A181A00FBF289 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2911C3A181A00FBF289 /* Model.swift */; };
+		69CEE2941C3A730C00FBF289 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2931C3A730C00FBF289 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,7 @@
 /* Begin PBXFileReference section */
 		69CEE25A1C39F8A800FBF289 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69CEE25D1C39F8A800FBF289 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		69CEE25F1C39F8A800FBF289 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		69CEE25F1C39F8A800FBF289 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		69CEE2621C39F8A800FBF289 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		69CEE2641C39F8A800FBF289 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69CEE2671C39F8A800FBF289 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +51,10 @@
 		69CEE2791C39F8A800FBF289 /* OnTheMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OnTheMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69CEE27D1C39F8A800FBF289 /* OnTheMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnTheMapUITests.swift; sourceTree = "<group>"; };
 		69CEE27F1C39F8A800FBF289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69CEE28B1C39F9CC00FBF289 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		69CEE28D1C39F9F100FBF289 /* InfoPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoPostViewController.swift; sourceTree = "<group>"; };
+		69CEE2911C3A181A00FBF289 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		69CEE2931C3A730C00FBF289 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				69CEE25D1C39F8A800FBF289 /* AppDelegate.swift */,
-				69CEE25F1C39F8A800FBF289 /* ViewController.swift */,
+				69CEE2911C3A181A00FBF289 /* Model.swift */,
+				69CEE2901C39FA3400FBF289 /* Controller */,
 				69CEE2611C39F8A800FBF289 /* Main.storyboard */,
 				69CEE2641C39F8A800FBF289 /* Assets.xcassets */,
 				69CEE2661C39F8A800FBF289 /* LaunchScreen.storyboard */,
@@ -123,6 +132,17 @@
 				69CEE27F1C39F8A800FBF289 /* Info.plist */,
 			);
 			path = OnTheMapUITests;
+			sourceTree = "<group>";
+		};
+		69CEE2901C39FA3400FBF289 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				69CEE25F1C39F8A800FBF289 /* LoginViewController.swift */,
+				69CEE28B1C39F9CC00FBF289 /* MapViewController.swift */,
+				69CEE2931C3A730C00FBF289 /* TableViewController.swift */,
+				69CEE28D1C39F9F100FBF289 /* InfoPostViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69CEE2601C39F8A800FBF289 /* ViewController.swift in Sources */,
+				69CEE2921C3A181A00FBF289 /* Model.swift in Sources */,
+				69CEE2941C3A730C00FBF289 /* TableViewController.swift in Sources */,
+				69CEE28E1C39F9F100FBF289 /* InfoPostViewController.swift in Sources */,
+				69CEE2601C39F8A800FBF289 /* LoginViewController.swift in Sources */,
+				69CEE28C1C39F9CC00FBF289 /* MapViewController.swift in Sources */,
 				69CEE25E1C39F8A800FBF289 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
