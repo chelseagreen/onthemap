@@ -19,6 +19,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
         EmailTextField.delegate = self
         PasswordTextField.delegate = self
         
@@ -36,7 +39,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
             presentViewController(alert, animated: true, completion: nil)
             return
-            
         }
         
         UserModel.sharedInstance().login(EmailTextField.text!, password: PasswordTextField.text!) { (success, errorString) -> Void in
@@ -52,7 +54,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             dispatch_async(dispatch_get_main_queue(), {
                 let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapTabBarController") as! UITabBarController
                 self.presentViewController(controller, animated: true, completion: nil)
-
             })
             
         }
@@ -64,8 +65,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-
-// Move from email field to password field, and dismiss keyboard upon entering password
+    //MARK: Keyboard Functions
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    // Move from email field to password field, and dismiss keyboard upon entering password
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == EmailTextField {
             PasswordTextField.becomeFirstResponder()
