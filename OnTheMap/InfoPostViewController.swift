@@ -7,29 +7,55 @@
 //
 
 import UIKit
+import MapKit
 
 class InfoPostViewController: UIViewController {
-
+    
+    @IBOutlet weak var FindOnMapButton: UIButton!
+    @IBOutlet weak var SubmitPinButton: UIButton!
+    @IBOutlet weak var StudyLabel: UILabel!
+    @IBOutlet weak var LocationTextField: UITextField!
+    @IBOutlet weak var LocationView: MKMapView!
+    @IBOutlet weak var LinkTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        view.backgroundColor = UIColor.orangeColor()
+        
+        SubmitPinButton.hidden = true
+        LinkTextField.hidden = true
+        LocationView.hidden = true
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //MARK: Actions
+    @IBAction func cancel() {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    */
+    
+    
+    @IBAction func findOnMap(sender: UIButton) {
+        
+        let address = LocationTextField.text!
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+            if let placemark = placemarks?[0] as? CLPlacemark? {
+                self.LocationView.addAnnotation(MKPlacemark(placemark: placemark!))
+           
+    
+                self.FindOnMapButton.hidden = true
+                self.StudyLabel.hidden = true
+                self.LocationTextField.hidden = true
+                self.SubmitPinButton.hidden = false
+                self.LinkTextField.hidden = false
+                self.LocationView.hidden = false
+            }
+        })
+    }
 
 }
+
+
+
+
+
+

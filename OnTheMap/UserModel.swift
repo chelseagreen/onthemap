@@ -58,7 +58,7 @@ class UserModel: NSObject {
                 return
             }
             guard let data = data else {
-                completionHandler(success: false, errorString: "No data was returned by the request!")
+                completionHandler(success: false, errorString: "No data was returned!")
                 return
             }
             // Handling special format of response data (skipping the first 5 characters).
@@ -86,7 +86,6 @@ class UserModel: NSObject {
         task.resume()
     }
     
-    
     func getUserData(accountKey: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         let request = NSMutableURLRequest(URL: NSURL(string: NSString(format: "https://www.udacity.com/api/users/%@", accountKey) as String)!)
         let session = NSURLSession.sharedSession()
@@ -96,10 +95,10 @@ class UserModel: NSObject {
                 return
             }
             guard let data = data else {
-                completionHandler(success: false, errorString: "No data was returned by the request!")
+                completionHandler(success: false, errorString: "No data was returned!")
                 return
             }
-            // Handling special format of response data (skipping the first 5 characters).
+            // Skipping the first 5 characters of response
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
             let parsedResult = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
             self.userFirstName = ((parsedResult["user"] as! [String: AnyObject])["first_name"] as! String)
@@ -110,6 +109,7 @@ class UserModel: NSObject {
         task.resume()
     }
     
+    // Logout does not seem to be working 
     func logout() {
         accountKey = nil
         userFirstName = nil
