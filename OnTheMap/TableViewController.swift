@@ -16,7 +16,6 @@ class TableViewController: UITableViewController {
     }
     
     //MARK: tableViewDelegate Methods
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return UserModel.sharedInstance().studentInfos.count
     }
@@ -54,7 +53,6 @@ class TableViewController: UITableViewController {
     
     @IBAction func refresh() {
         tableView.reloadData()
-        
     }
     
 }

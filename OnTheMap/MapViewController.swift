@@ -53,7 +53,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotations.append(annotation)
         }
         mapView.addAnnotations(annotations)
-
     }
     
     // MARK: Actions 
@@ -73,12 +72,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let unloadMap = mapView.annotations.filter { $0 !== mapView.userLocation }
         mapView.removeAnnotations(unloadMap)
         loadMap()
-    }
-    
+    }    
 }
-  
-    
-    
     
     
     
