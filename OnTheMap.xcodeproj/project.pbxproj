@@ -19,6 +19,7 @@
 		69CEE2921C3A181A00FBF289 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2911C3A181A00FBF289 /* UserModel.swift */; };
 		69CEE2941C3A730C00FBF289 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2931C3A730C00FBF289 /* TableViewController.swift */; };
 		69CEE2961C3A7FE900FBF289 /* PinnedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2951C3A7FE900FBF289 /* PinnedCell.swift */; };
+		69CEE2981C41C77E00FBF289 /* StudentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE2971C41C77E00FBF289 /* StudentInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		69CEE2911C3A181A00FBF289 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		69CEE2931C3A730C00FBF289 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		69CEE2951C3A7FE900FBF289 /* PinnedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedCell.swift; sourceTree = "<group>"; };
+		69CEE2971C41C77E00FBF289 /* StudentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 			children = (
 				69CEE25D1C39F8A800FBF289 /* AppDelegate.swift */,
 				69CEE2911C3A181A00FBF289 /* UserModel.swift */,
+				69CEE2971C41C77E00FBF289 /* StudentInfo.swift */,
 				69CEE2901C39FA3400FBF289 /* Controller */,
 				69CEE2611C39F8A800FBF289 /* Main.storyboard */,
 				69CEE2951C3A7FE900FBF289 /* PinnedCell.swift */,
@@ -286,6 +289,7 @@
 				69CEE2601C39F8A800FBF289 /* LoginViewController.swift in Sources */,
 				69CEE28C1C39F9CC00FBF289 /* MapViewController.swift in Sources */,
 				69CEE25E1C39F8A800FBF289 /* AppDelegate.swift in Sources */,
+				69CEE2981C41C77E00FBF289 /* StudentInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +516,7 @@
 				69CEE2841C39F8A800FBF289 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		69CEE2851C39F8A800FBF289 /* Build configuration list for PBXNativeTarget "OnTheMapTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +525,7 @@
 				69CEE2871C39F8A800FBF289 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		69CEE2881C39F8A800FBF289 /* Build configuration list for PBXNativeTarget "OnTheMapUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +534,7 @@
 				69CEE28A1C39F8A800FBF289 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

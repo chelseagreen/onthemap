@@ -12,15 +12,18 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
-    
+    var annotations = [MKPointAnnotation]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapView.delegate = self
         loadMap()
     }
     
     // MARK: MKMapViewDelegate
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
         
@@ -32,21 +35,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         else {
             pinView!.annotation = annotation
         }
-        
         return pinView
     }
     
     //Links to student URL in Safari browser 
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-            let app = UIApplication.sharedApplication()
-            app.openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
+        let link = NSURLRequest(URL: NSURL(string: annotationView.annotation!.subtitle!!)!)
+        UIApplication.sharedApplication().openURL(link.URL!)
     }
-    
+
     func loadMap() {
-        var annotations = [MKPointAnnotation]()
         for StudentInfo in UserModel.sharedInstance().studentInfos {
             let annotation = MKPointAnnotation()
-            
+        
             annotation.coordinate = CLLocationCoordinate2D(latitude: StudentInfo.latitude, longitude: StudentInfo.longitude)
             annotation.title = StudentInfo.fullName()
             annotation.subtitle = StudentInfo.linkUrl
@@ -55,10 +56,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotations(annotations)
     }
     
-    // MARK: Actions 
-    
+    // MARK: Button Actions
     @IBAction func logout() {
-        UserModel.sharedInstance().logout()
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.presentViewController(controller, animated: true, completion: nil)
     }

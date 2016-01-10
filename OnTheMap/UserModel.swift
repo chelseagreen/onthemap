@@ -9,26 +9,6 @@
 import Foundation
 import MapKit
 
-struct StudentInfo {
-    var firstName: String
-    var lastName: String
-    var linkUrl: String
-    var latitude: Double
-    var longitude: Double
-    
-    init(dictionary: [String: AnyObject]) {
-        firstName = dictionary["firstName"] as! String
-        lastName = dictionary["lastName"] as! String
-        linkUrl = dictionary["linkUrl"] as! String
-        latitude = dictionary["latitude"] as! Double
-        longitude = dictionary["longitude"] as! Double
-    }
-    
-    func fullName() -> String {
-        return firstName + " " + lastName
-    }
-}
-
 class UserModel: NSObject {
     var accountKey: String?
     var userFirstName: String?
@@ -40,7 +20,7 @@ class UserModel: NSObject {
         studentInfos = [StudentInfo]()
     }
     
-    func login(email: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    func postUserSession(email: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         // Create a request object.
         let urlString = "https://www.udacity.com/api/session"
         let url = NSURL(string: urlString)!
@@ -61,7 +41,7 @@ class UserModel: NSObject {
                 completionHandler(success: false, errorString: "No data was returned!")
                 return
             }
-            // Handling special format of response data (skipping the first 5 characters).
+            // Skipping the first 5 characters of response.
             let newData = data.subdataWithRange(NSMakeRange(5, data.length-5))
             // Parse the returned data.
             let parsedResult = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
@@ -70,12 +50,12 @@ class UserModel: NSObject {
                 completionHandler(success: false, errorString: (parsedResult.objectForKey("error")! as! String))
                 return
             }
-            // Now we successfully logged in, record the account key and session id, and then redirect to map view.
+            // Record the account key and session id and redirect to map/table view.
             let accountKey = ((parsedResult["account"] as! [String: AnyObject])["key"] as! String)
             self.sessionId = ((parsedResult["session"] as! [String: AnyObject])["id"] as! String)
-            self.getUserData(accountKey, completionHandler: { (success, errorString) -> Void in
+            self.getStudentLocations(accountKey, completionHandler: { (success, errorString) -> Void in
                 if (success) {
-                    self.loadStudentInfos({ (success, errorString) -> Void in
+                    self.parseStudentInfo({ (success, errorString) -> Void in
                         completionHandler(success: success, errorString: errorString)
                     })
                 } else {
@@ -86,7 +66,30 @@ class UserModel: NSObject {
         task.resume()
     }
     
-    func getUserData(accountKey: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
+    func deleteUserSession(completionHandler: (success: Bool, errorString: String?) -> Void) {
+            let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+            request.HTTPMethod = "DELETE"
+            var xsrfCookie: NSHTTPCookie? = nil
+            let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+            for cookie in sharedCookieStorage.cookies as [NSHTTPCookie]! {
+                if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+            }
+            if let xsrfCookie = xsrfCookie {
+                request.addValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-Token")
+            }
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(request) { data, response, error in
+                guard error == nil else { // Handle error…
+                    completionHandler(success: false, errorString: "Error occured.")
+                    return
+                }
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+                print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+        }
+        task.resume()
+    }
+
+    func getStudentLocations(accountKey: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         let request = NSMutableURLRequest(URL: NSURL(string: NSString(format: "https://www.udacity.com/api/users/%@", accountKey) as String)!)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in// Error checking of response.
@@ -109,15 +112,7 @@ class UserModel: NSObject {
         task.resume()
     }
     
-    // Logout does not seem to be working
-    func logout() {
-        accountKey = nil
-        userFirstName = nil
-        userLastName = nil
-        sessionId = nil
-    }
-    
-    func loadStudentInfos(completionHandler: (success: Bool, errorString: String?) -> Void) {
+    func parseStudentInfo(completionHandler: (success: Bool, errorString: String?) -> Void) {
         // Retrieve student location data through parse.com
         let parameters = ["order": "-updatedAt"]
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation" + UserModel.escapedParameters(parameters))!)

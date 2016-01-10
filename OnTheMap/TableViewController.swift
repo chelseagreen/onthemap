@@ -40,12 +40,21 @@ class TableViewController: UITableViewController {
     
     // MARK: Actions
     @IBAction func logout() {
-        UserModel.sharedInstance().logout()
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.presentViewController(controller, animated: true, completion: nil)
+        UserModel.sharedInstance().deleteUserSession { (success, errorString) -> Void in
+            guard success else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    let alert = UIAlertController(title: "Error", message: "Unable to log out.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                })
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
     }
-    
-    
+
     @IBAction func newPin() {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPostViewController") as! InfoPostViewController
         self.presentViewController(controller, animated: true, completion: nil)

@@ -10,10 +10,10 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var EmailTextField: UITextField!
-    @IBOutlet weak var PasswordTextField: UITextField!
-    @IBOutlet weak var LoginButton: UIButton!
-    @IBOutlet weak var SignUpButton: UIButton!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -22,26 +22,26 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
-        EmailTextField.delegate = self
-        PasswordTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         view.backgroundColor = UIColor.blackColor()
         
-        LoginButton.backgroundColor = UIColor.whiteColor()
-        SignUpButton.backgroundColor = UIColor.blackColor()
+        loginButton.backgroundColor = UIColor.whiteColor()
+        signUpButton.backgroundColor = UIColor.blackColor()
     }
 
     //MARK: Actions
     @IBAction func loginButtonPressed(sender: UIButton) {
         // Make sure email and password are not empty.
-        guard (!EmailTextField.text!.isEmpty && !PasswordTextField.text!.isEmpty) else {
+        guard (!emailTextField.text!.isEmpty && !passwordTextField.text!.isEmpty) else {
             let alert = UIAlertController(title: "Error", message: "Email and/or password field is empty.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
             presentViewController(alert, animated: true, completion: nil)
             return
         }
         
-        UserModel.sharedInstance().login(EmailTextField.text!, password: PasswordTextField.text!) { (success, errorString) -> Void in
+        UserModel.sharedInstance().postUserSession(emailTextField.text!, password: passwordTextField.text!) { (success, errorString) -> Void in
             guard success else {
                 dispatch_async(dispatch_get_main_queue(), {
                     let alert = UIAlertController(title: "Error", message: errorString, preferredStyle: UIAlertControllerStyle.Alert)
@@ -75,8 +75,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // Move from email field to password field, and dismiss keyboard upon entering password
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == EmailTextField {
-            PasswordTextField.becomeFirstResponder()
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
         }
