@@ -47,7 +47,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func loadMap() {
         for StudentInfo in UserModel.sharedInstance().studentInfos {
             let annotation = MKPointAnnotation()
-        
             annotation.coordinate = CLLocationCoordinate2D(latitude: StudentInfo.latitude, longitude: StudentInfo.longitude)
             annotation.title = StudentInfo.fullName()
             annotation.subtitle = StudentInfo.linkUrl

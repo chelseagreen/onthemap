@@ -59,12 +59,11 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func findOnMap(sender: AnyObject) {
-        
         let address = locationTextField.text!
         let geocoder = CLGeocoder()
         
         geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
-                if let address = error {
+                if let _ = error {
                     let alert = UIAlertController(title: "", message: "Unable to Locate", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -85,9 +84,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
                         self.locationView.hidden = false
                     }
                 }
-                
             })
-        
         }
 
     @IBAction func submitNewPin(sender: UIButton) {
