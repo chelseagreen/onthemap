@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -27,7 +28,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         view.backgroundColor = UIColor.blackColor()
         
+        
         loginButton.backgroundColor = UIColor.whiteColor()
+        loginButton.layer.cornerRadius = 5
         signUpButton.backgroundColor = UIColor.blackColor()
     }
 
@@ -59,7 +62,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func SignUpLink(sender: UIButton) {
+    @IBAction func signUpLink(sender: UIButton) {
         if let url = NSURL(string: "http://www.udacity.com") {
             UIApplication.sharedApplication().openURL(url)
         }

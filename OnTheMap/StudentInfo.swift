@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MapKit
 
 struct StudentInfo {
     var firstName: String
