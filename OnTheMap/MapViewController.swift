@@ -44,14 +44,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         UIApplication.sharedApplication().openURL(link.URL!)
     }
 
-    func loadMap() {
-        for StudentInfo in UserModel.sharedInstance().studentInfos {
+    func loadMap(completionHandler: (success: Bool) -> Void) {
+        guard error == nil else {
+            display
+            return
+        }
+        for StudentInfo in UserModel.sharedInstance().studentInfos
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: StudentInfo.latitude, longitude: StudentInfo.longitude)
             annotation.title = StudentInfo.fullName()
             annotation.subtitle = StudentInfo.linkUrl
             annotations.append(annotation)
-        }
         mapView.addAnnotations(annotations)
     }
     
@@ -70,9 +73,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let unloadMap = mapView.annotations.filter { $0 !== mapView.userLocation }
         mapView.removeAnnotations(unloadMap)
         loadMap()
-    }    
-}
+    }
     
+    func displayMessageBox(message:String){
+        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+}
+
     
     
     

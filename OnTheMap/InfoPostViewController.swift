@@ -64,9 +64,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         
         geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
                 if let _ = error {
-                    let alert = UIAlertController(title: "", message: "Unable to Locate", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.displayMessageBox("Unable to Locate")
                 } else {
                     if let placemark = placemarks?[0] as? CLPlacemark? {
                         self.locationView.addAnnotation(MKPlacemark(placemark: placemark!))
@@ -91,9 +89,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         let coord = location!.coordinate
         
         guard linkTextField.text != "" else {
-            let alert = UIAlertController(title: "Error", message: "Please enter a link", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            displayMessageBox("Please enter a link.")
             return
         }
         UserModel.sharedInstance().addNewPin(locationTextField.text!, mediaURL: linkTextField.text!, latitude: coord.latitude, longitude: coord.longitude) { (success, errorString) -> Void in
@@ -101,14 +97,17 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
             if (success) {
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
-                let alert = UIAlertController(title: "Error", message: errorString!, preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.displayMessageBox("Error")
             }
         })
         }
     }
 
+    func displayMessageBox(message:String){
+        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }
 
 

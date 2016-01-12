@@ -34,7 +34,7 @@ class UserModel: NSObject {
         let task = session.dataTaskWithRequest(request) { data, response, error in
             // Error checking of response.
             guard error == nil else {
-                completionHandler(success: false, errorString: error?.localizedDescription)
+                completionHandler(success: false, errorString: "No data was returned.")
                 return
             }
             guard let data = data else {
@@ -45,9 +45,9 @@ class UserModel: NSObject {
             let newData = data.subdataWithRange(NSMakeRange(5, data.length-5))
             // Parse the returned data.
             let parsedResult = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
-            // Present any error to user, mostly because of the bad credentials.
+            // Present error to user for wrong credentials.
             guard parsedResult.objectForKey("error") == nil else {
-                completionHandler(success: false, errorString: (parsedResult.objectForKey("error")! as! String))
+                completionHandler(success: false, errorString: "Incorrect email and/or password. Please try again.")
                 return
             }
             // Record the account key and session id and redirect to map/table view.
@@ -59,16 +59,13 @@ class UserModel: NSObject {
                         completionHandler(success: success, errorString: errorString)
                     })
                 } else {
-                    completionHandler(success: false, errorString: errorString)
+                    completionHandler(success: false, errorString: "Failure to connect.")
                 }
             })
         }
         task.resume()
     }
-    
-    func postFacebookSession() {
-        
-    }
+
     
     func deleteUserSession(completionHandler: (success: Bool, errorString: String?) -> Void) {
             let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
@@ -98,11 +95,11 @@ class UserModel: NSObject {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in// Error checking of response.
             guard error == nil else {
-                completionHandler(success: false, errorString: error?.localizedDescription)
+                completionHandler(success: false, errorString: "No data was returned.")
                 return
             }
             guard let data = data else {
-                completionHandler(success: false, errorString: "No data was returned!")
+                completionHandler(success: false, errorString: "No data was returned.")
                 return
             }
             // Skipping the first 5 characters of response

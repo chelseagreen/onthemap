@@ -42,11 +42,7 @@ class TableViewController: UITableViewController {
     @IBAction func logout() {
         UserModel.sharedInstance().deleteUserSession { (success, errorString) -> Void in
             guard success else {
-                dispatch_async(dispatch_get_main_queue(), {
-                    let alert = UIAlertController(title: "Error", message: "Unable to log out.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                })
+                self.displayMessageBox("Unable to log out.")
                 return
             }
             dispatch_async(dispatch_get_main_queue(), {
@@ -64,6 +60,12 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func displayMessageBox(message:String){
+        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
 }
 
 
