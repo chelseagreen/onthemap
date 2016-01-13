@@ -10,15 +10,6 @@ import Foundation
 import MapKit
 
 class UserModel: NSObject {
-    var accountKey: String?
-    var userFirstName: String?
-    var userLastName: String?
-    var sessionId: String?
-    var studentInfos: [StudentInfo]
-    
-    override init() {
-        studentInfos = [StudentInfo]()
-    }
     
     func postUserSession(email: String, password: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
         // Create a request object.
@@ -52,7 +43,7 @@ class UserModel: NSObject {
             }
             // Record the account key and session id and redirect to map/table view.
             let accountKey = ((parsedResult["account"] as! [String: AnyObject])["key"] as! String)
-            self.sessionId = ((parsedResult["session"] as! [String: AnyObject])["id"] as! String)
+            Users.sharedInstance().sessionId = ((parsedResult["session"] as! [String: AnyObject])["id"] as! String)
             self.getStudentLocations(accountKey, completionHandler: { (success, errorString) -> Void in
                 if (success) {
                     self.parseStudentInfo({ (success, errorString) -> Void in
@@ -105,9 +96,9 @@ class UserModel: NSObject {
             // Skipping the first 5 characters of response
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
             let parsedResult = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
-            self.userFirstName = ((parsedResult["user"] as! [String: AnyObject])["first_name"] as! String)
-            self.userLastName = ((parsedResult["user"] as! [String: AnyObject])["last_name"] as! String)
-            self.accountKey = accountKey
+            Users.sharedInstance().userFirstName = ((parsedResult["user"] as! [String: AnyObject])["first_name"] as! String)
+            Users.sharedInstance().userLastName = ((parsedResult["user"] as! [String: AnyObject])["last_name"] as! String)
+            Users.sharedInstance().accountKey = accountKey
             completionHandler(success: true, errorString: nil)
         }
         task.resume()
@@ -141,7 +132,7 @@ class UserModel: NSObject {
                 completionHandler(success: false, errorString: "Server error: unparseable results array.")
                 return
             }
-            self.studentInfos.removeAll()
+            Users.sharedInstance().studentInfos.removeAll()
             for dictionary in resultsArray! {
                 let latitude = CLLocationDegrees(dictionary.objectForKey("latitude")! as! Double)
                 let longitude = CLLocationDegrees(dictionary.objectForKey("longitude")! as! Double)
@@ -150,7 +141,7 @@ class UserModel: NSObject {
                 let lastName = dictionary.objectForKey("lastName") as! String
                 let linkUrl = dictionary.objectForKey("mediaURL") as! String
                 
-                self.studentInfos.append(StudentInfo(dictionary: ["firstName": firstName, "lastName": lastName, "linkUrl": linkUrl, "latitude": latitude, "longitude": longitude]))
+                Users.sharedInstance().studentInfos.append(StudentInfo(dictionary: ["firstName": firstName, "lastName": lastName, "linkUrl": linkUrl, "latitude": latitude, "longitude": longitude]))
             }
             completionHandler(success: true, errorString: nil)
         }
@@ -163,15 +154,15 @@ class UserModel: NSObject {
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = NSString(format: "{\"uniqueKey\": \"%@\", \"firstName\": \"%@\", \"lastName\": \"%@\",\"mapString\": \"%@\", \"mediaURL\": \"%@\",\"latitude\": %f, \"longitude\": %f}", accountKey!, userFirstName!, userLastName!, mapString, mediaURL, latitude, longitude).dataUsingEncoding(NSUTF8StringEncoding)
+        request.HTTPBody = NSString(format: "{\"uniqueKey\": \"%@\", \"firstName\": \"%@\", \"lastName\": \"%@\",\"mapString\": \"%@\", \"mediaURL\": \"%@\",\"latitude\": %f, \"longitude\": %f}", Users.sharedInstance().accountKey!, Users.sharedInstance().userFirstName!, Users.sharedInstance().userLastName!, mapString, mediaURL, latitude, longitude).dataUsingEncoding(NSUTF8StringEncoding)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             guard error == nil else {
                 completionHandler(success: false, errorString: error?.description)
                 return
             }
-            let studentInfo = StudentInfo(dictionary: ["firstName": self.userFirstName!, "lastName": self.userLastName!, "linkUrl": mediaURL, "latitude": latitude, "longitude": longitude])
-            self.studentInfos.insert(studentInfo, atIndex: 0)
+            let studentInfo = StudentInfo(dictionary: ["firstName": Users.sharedInstance().userFirstName!, "lastName": Users.sharedInstance().userLastName!, "linkUrl": mediaURL, "latitude": latitude, "longitude": longitude])
+            Users.sharedInstance().studentInfos.insert(studentInfo, atIndex: 0)
             completionHandler(success: true, errorString: nil)
         }
         task.resume()
@@ -204,14 +195,6 @@ class UserModel: NSObject {
         return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -65,14 +65,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: Keyboard Functions
-    
     //Calls this function when the tap is recognized.
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
-    // Move from email field to password field, and dismiss keyboard upon entering password
+    //Move from email field to password field, and dismiss keyboard upon entering password
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()

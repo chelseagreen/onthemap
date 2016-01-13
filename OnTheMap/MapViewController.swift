@@ -43,35 +43,35 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let link = NSURLRequest(URL: NSURL(string: annotationView.annotation!.subtitle!!)!)
         UIApplication.sharedApplication().openURL(link.URL!)
     }
-
-    func loadMap(completionHandler: (success: Bool) -> Void) {
-        guard error == nil else {
-            display
-            return
-        }
-        for StudentInfo in UserModel.sharedInstance().studentInfos
+    
+    func loadMap(success: Bool = true) {
+        for StudentInfo in Users.sharedInstance().studentInfos {
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: StudentInfo.latitude, longitude: StudentInfo.longitude)
             annotation.title = StudentInfo.fullName()
             annotation.subtitle = StudentInfo.linkUrl
-            annotations.append(annotation)
-        mapView.addAnnotations(annotations)
+            annotations.append(annotation); if success {
+                    mapView.addAnnotations(annotations)
+                } else {
+                    displayMessageBox("Unable to load")
+                }
+        }
     }
     
     // MARK: Button Actions
-    @IBAction func logout() {
+    @IBAction func logout(sender: UIBarButtonItem) {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
-    @IBAction func newPin() {
+    @IBAction func newPin(sender: UIBarButtonItem) {
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPostViewController") as! InfoPostViewController
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
-    @IBAction func refresh() {
-        let unloadMap = mapView.annotations.filter { $0 !== mapView.userLocation }
-        mapView.removeAnnotations(unloadMap)
+    @IBAction func refresh(sender: UIBarButtonItem) {
+        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+        mapView.removeAnnotations(annotationsToRemove)
         loadMap()
     }
     
