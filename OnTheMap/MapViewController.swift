@@ -19,6 +19,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
         
         mapView.delegate = self
         loadMap()
+
     }
     
     // MARK: MKMapViewDelegate
@@ -51,8 +52,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
         let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
         mapView.removeAnnotations(annotationsToRemove)
     
-        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: self.refreshLocations, object: self))
-        UserModel.sharedInstance().getStudentLocations({ (success, errorString) -> Void in
+        UserModel.sharedInstance().getStudentLocations(Users.sharedInstance().accountKey!, completionHandler: { (success, errorString)  -> Void in
             if (success) {
                 UserModel.sharedInstance().parseStudentInfo({ (success, errorString) -> Void in
                     (success: success, errorString: errorString)

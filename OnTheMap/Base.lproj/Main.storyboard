@@ -138,7 +138,7 @@
                         <action selector="refreshLocationData:" destination="kus-yJ-maN" id="Jbb-Gx-K1v"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem title="Item" id="TnL-z0-hHj" userLabel="logout">
+                <barButtonItem title="Logout" id="TnL-z0-hHj" userLabel="logout">
                     <connections>
                         <action selector="logout:" destination="kus-yJ-maN" id="8al-3v-VyR"/>
                     </connections>
@@ -181,9 +181,6 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5SY-LS-xlb">
                                 <rect key="frame" x="309" y="124" width="41" height="30"/>
                                 <state key="normal" title="LOOK"/>
-                                <connections>
-                                    <segue destination="BKj-t3-19J" kind="show" id="dht-Te-Cxj"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -213,41 +210,13 @@
                         <action selector="refreshLocationData:" destination="Ikg-ZM-MBu" id="xJd-YX-KIt"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem title="Item" id="P06-L4-JPz" userLabel="logout">
+                <barButtonItem title="Logout" id="P06-L4-JPz" userLabel="logout">
                     <connections>
                         <action selector="logout:" destination="Ikg-ZM-MBu" id="4xg-FW-ygv"/>
                     </connections>
                 </barButtonItem>
             </objects>
             <point key="canvasLocation" x="2551" y="-805"/>
-        </scene>
-        <!--Base View Controller-->
-        <scene sceneID="jkm-Ec-19S">
-            <objects>
-                <viewController id="BKj-t3-19J" customClass="BaseViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jRO-Om-Try"/>
-                        <viewControllerLayoutGuide type="bottom" id="TEC-cE-fFo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wr3-AY-xFF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Xb-Og-Ilh">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="YES" id="4L0-0E-YBK"/>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XcT-1B-GV5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2064" y="-1708"/>
         </scene>
         <!--Map-->
         <scene sceneID="NNI-AP-xY7">

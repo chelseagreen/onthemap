@@ -45,7 +45,7 @@ class TableViewController: BaseViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func refreshLocationData(sender: UIBarButtonItem) {
         NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: self.refreshLocations, object: self))
-        UserModel.sharedInstance().getStudentLocations({ (success, errorString) -> Void in
+        UserModel.sharedInstance().getStudentLocations(Users.sharedInstance().accountKey!, completionHandler: { (success, errorString) -> Void in
             if (success) {
                 UserModel.sharedInstance().parseStudentInfo({ (success, errorString) -> Void in
                     (success: success, errorString: errorString)
