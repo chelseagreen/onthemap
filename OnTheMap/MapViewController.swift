@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: BaseViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     var annotations = [MKPointAnnotation]()
@@ -43,7 +43,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let link = NSURLRequest(URL: NSURL(string: annotationView.annotation!.subtitle!!)!)
         UIApplication.sharedApplication().openURL(link.URL!)
     }
+
+    func refreshMapView() {
+    }
     
+    @IBAction func refreshLocationData(sender: UIBarButtonItem) {
+        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
+        mapView.removeAnnotations(annotationsToRemove)
+    
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: self.refreshLocations, object: self))
+        UserModel.sharedInstance().getStudentLocations({ (success, errorString) -> Void in
+            if (success) {
+                UserModel.sharedInstance().parseStudentInfo({ (success, errorString) -> Void in
+                    (success: success, errorString: errorString)
+                })
+            } else {
+                (success: false, errorString: "Failure to connect.")
+            }
+        })
+        
+        loadMap()
+        
+    }
+
     func loadMap(success: Bool = true) {
         for StudentInfo in Users.sharedInstance().studentInfos {
             let annotation = MKPointAnnotation()
@@ -58,34 +80,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    // MARK: Button Actions
-    @IBAction func logout(sender: UIBarButtonItem) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        self.presentViewController(controller, animated: true, completion: nil)
-    }
-    
-    @IBAction func newPin(sender: UIBarButtonItem) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InfoPostViewController") as! InfoPostViewController
-        self.presentViewController(controller, animated: true, completion: nil)
-    }
-    
-    @IBAction func refresh(sender: UIBarButtonItem) {
-        let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
-        mapView.removeAnnotations(annotationsToRemove)
-        loadMap()
-    }
-    
-    func displayMessageBox(message:String){
-        let alert = UIAlertController(title: "", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+    func geoloadingStart() {
+     //TODO: add geoloading start / finish notification
     }
 }
 
-    
-    
-    
-    
-    
+
+
+
+
+
     
 

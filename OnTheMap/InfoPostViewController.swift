@@ -53,6 +53,10 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func geoloadingStart() {
+        //TODO: add geoloading start / finish notification
+    }
+    
     //MARK: Actions
     @IBAction func cancel() {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -109,14 +113,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
 
 
 

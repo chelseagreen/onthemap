@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		694A94D51C4679FF0059D524 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A94D41C4679FF0059D524 /* Users.swift */; };
+		694A94D71C467D780059D524 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A94D61C467D780059D524 /* BaseViewController.swift */; };
 		69CEE25E1C39F8A800FBF289 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE25D1C39F8A800FBF289 /* AppDelegate.swift */; };
 		69CEE2601C39F8A800FBF289 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CEE25F1C39F8A800FBF289 /* LoginViewController.swift */; };
 		69CEE2631C39F8A800FBF289 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69CEE2611C39F8A800FBF289 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		694A94D41C4679FF0059D524 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		694A94D61C467D780059D524 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		69CEE25A1C39F8A800FBF289 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69CEE25D1C39F8A800FBF289 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69CEE25F1C39F8A800FBF289 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		69CEE2901C39FA3400FBF289 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				694A94D61C467D780059D524 /* BaseViewController.swift */,
 				69CEE25F1C39F8A800FBF289 /* LoginViewController.swift */,
 				69CEE28B1C39F9CC00FBF289 /* MapViewController.swift */,
 				69CEE2931C3A730C00FBF289 /* TableViewController.swift */,
@@ -290,6 +293,7 @@
 				69CEE2921C3A181A00FBF289 /* UserModel.swift in Sources */,
 				69CEE2941C3A730C00FBF289 /* TableViewController.swift in Sources */,
 				69CEE28E1C39F9F100FBF289 /* InfoPostViewController.swift in Sources */,
+				694A94D71C467D780059D524 /* BaseViewController.swift in Sources */,
 				69CEE2601C39F8A800FBF289 /* LoginViewController.swift in Sources */,
 				69CEE28C1C39F9CC00FBF289 /* MapViewController.swift in Sources */,
 				69CEE25E1C39F8A800FBF289 /* AppDelegate.swift in Sources */,

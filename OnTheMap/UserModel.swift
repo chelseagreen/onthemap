@@ -41,10 +41,10 @@ class UserModel: NSObject {
                 completionHandler(success: false, errorString: "Incorrect email and/or password. Please try again.")
                 return
             }
-            // Record the account key and session id and redirect to map/table view.
-            let accountKey = ((parsedResult["account"] as! [String: AnyObject])["key"] as! String)
+            // Record the session id and redirect to map/table view.
+            
             Users.sharedInstance().sessionId = ((parsedResult["session"] as! [String: AnyObject])["id"] as! String)
-            self.getStudentLocations(accountKey, completionHandler: { (success, errorString) -> Void in
+            self.getStudentLocations({ (success, errorString) -> Void in
                 if (success) {
                     self.parseStudentInfo({ (success, errorString) -> Void in
                         completionHandler(success: success, errorString: errorString)
@@ -81,8 +81,8 @@ class UserModel: NSObject {
         task.resume()
     }
 
-    func getStudentLocations(accountKey: String, completionHandler: (success: Bool, errorString: String?) -> Void) {
-        let request = NSMutableURLRequest(URL: NSURL(string: NSString(format: "https://www.udacity.com/api/users/%@", accountKey) as String)!)
+    func getStudentLocations(completionHandler: (success: Bool, errorString: String?) -> Void) {
+        let request = NSMutableURLRequest(URL: NSURL(string: NSString(format: "https://www.udacity.com/api/users/%@") as String)!)
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in// Error checking of response.
             guard error == nil else {
@@ -96,9 +96,7 @@ class UserModel: NSObject {
             // Skipping the first 5 characters of response
             let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5)) /* subset response data! */
             let parsedResult = try! NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
-            Users.sharedInstance().userFirstName = ((parsedResult["user"] as! [String: AnyObject])["first_name"] as! String)
-            Users.sharedInstance().userLastName = ((parsedResult["user"] as! [String: AnyObject])["last_name"] as! String)
-            Users.sharedInstance().accountKey = accountKey
+          
             completionHandler(success: true, errorString: nil)
         }
         task.resume()
