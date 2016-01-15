@@ -38,6 +38,8 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         submitPinButton.layer.cornerRadius = 7
         
         submitPinButton.hidden = true
+        submitPinButton.bringSubviewToFront(self.view)
+        
         linkTextField.hidden = true
         locationView.hidden = true
         
@@ -46,7 +48,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         indicator.center = self.view.center
         self.view.addSubview(indicator)
         indicator.bringSubviewToFront(self.view)
-        
         
     }
     
