@@ -16,12 +16,18 @@ class BaseViewController: UIViewController {
     @IBOutlet var refresh: UIBarButtonItem!
     @IBOutlet var newPin: UIBarButtonItem!
     
-    let refreshLocations = "refreshLocations"
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.setRightBarButtonItems([newPin, refresh], animated: false)
         navigationItem.setLeftBarButtonItems([logout], animated: false)
+        
+        indicator.color = UIColor.orangeColor()
+        indicator.frame = CGRectMake(0, 0, 10, 10)
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        indicator.bringSubviewToFront(self.view)
     }
     
     // MARK: Button Actions
@@ -32,13 +38,11 @@ class BaseViewController: UIViewController {
 
     @IBAction func logout(sender: UIBarButtonItem) {
         UserModel.sharedInstance().deleteUserSession { (success, errorString) -> Void in
-            guard success else {
-                self.displayMessageBox("Unable to log out.")
-                return
-            }
-            dispatch_async(dispatch_get_main_queue(), {
+            if (success == true) {
                 self.dismissViewControllerAnimated(true, completion: nil)
-            })
+            } else {
+                (success: false, errorString: "Failure to logout.")
+            }
         }
     }
     
@@ -49,3 +53,23 @@ class BaseViewController: UIViewController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

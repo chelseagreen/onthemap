@@ -18,6 +18,8 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var locationView: MKMapView!
     @IBOutlet weak var linkTextField: UITextField!
     
+    let indicator:UIActivityIndicatorView = UIActivityIndicatorView (activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    
     var location: MKPlacemark!
     
     override func viewDidLoad() {
@@ -38,6 +40,14 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         submitPinButton.hidden = true
         linkTextField.hidden = true
         locationView.hidden = true
+        
+        indicator.color = UIColor.orangeColor()
+        indicator.frame = CGRectMake(0, 0, 10, 10)
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        indicator.bringSubviewToFront(self.view)
+        
+        
     }
     
     //MARK: Keyboard functions
@@ -65,6 +75,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
     @IBAction func findOnMap(sender: AnyObject) {
         let address = locationTextField.text!
         let geocoder = CLGeocoder()
+        indicator.startAnimating()
         
         geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
                 if let _ = error {
@@ -87,9 +98,12 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             })
+        indicator.stopAnimating()
         }
 
     @IBAction func submitNewPin(sender: UIButton) {
+        indicator.startAnimating()
+        
         let coord = location!.coordinate
         
         guard linkTextField.text != "" else {
@@ -105,6 +119,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
             }
         })
         }
+        indicator.stopAnimating()
     }
 
     func displayMessageBox(message:String){
@@ -113,6 +128,14 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
+
+
+
+
+
+
+
+
 
 
 

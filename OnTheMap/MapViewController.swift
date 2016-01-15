@@ -49,6 +49,8 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
     }
     
     @IBAction func refreshLocationData(sender: UIBarButtonItem) {
+        indicator.startAnimating()
+        
         let annotationsToRemove = mapView.annotations.filter { $0 !== mapView.userLocation }
         mapView.removeAnnotations(annotationsToRemove)
     
@@ -59,10 +61,12 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
                 })
             } else {
                 (success: false, errorString: "Failure to connect.")
+                self.indicator.stopAnimating()
             }
         })
         
         loadMap()
+        indicator.stopAnimating()
         
     }
 

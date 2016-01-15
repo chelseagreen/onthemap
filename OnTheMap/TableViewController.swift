@@ -44,7 +44,8 @@ class TableViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func refreshLocationData(sender: UIBarButtonItem) {
-        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: self.refreshLocations, object: self))
+        indicator.startAnimating()
+   
         UserModel.sharedInstance().getStudentLocations(Users.sharedInstance().accountKey!, completionHandler: { (success, errorString) -> Void in
             if (success) {
                 UserModel.sharedInstance().parseStudentInfo({ (success, errorString) -> Void in
@@ -52,11 +53,12 @@ class TableViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 })
             } else {
                 (success: false, errorString: "Failure to connect.")
+                self.indicator.stopAnimating()
             }
         })
         
         tableView.reloadData()
-        
+        indicator.stopAnimating()
     }
     
 }
