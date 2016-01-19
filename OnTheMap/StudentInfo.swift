@@ -27,4 +27,3 @@ struct StudentInfo {
         return firstName + " " + lastName
     }
 }
-

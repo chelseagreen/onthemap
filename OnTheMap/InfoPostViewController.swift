@@ -64,10 +64,6 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func geoloadingStart() {
-        //TODO: add geoloading start / finish notification
-    }
-    
     //MARK: Actions
     @IBAction func cancel() {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -112,13 +108,11 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
             return
         }
         UserModel.sharedInstance().addNewPin(locationTextField.text!, mediaURL: linkTextField.text!, latitude: coord.latitude, longitude: coord.longitude) { (success, errorString) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
             if (success) {
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 self.displayMessageBox("Error")
             }
-        })
         }
         indicator.stopAnimating()
     }
@@ -129,25 +123,3 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-

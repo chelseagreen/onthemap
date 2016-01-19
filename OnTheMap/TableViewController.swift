@@ -18,7 +18,6 @@ class TableViewController: BaseViewController, UITableViewDelegate, UITableViewD
         tableView.reloadData()
         tableView.delegate = self
         tableView.dataSource = self
-      
     }
     
     //MARK: tableViewDelegate Methods
@@ -47,30 +46,16 @@ class TableViewController: BaseViewController, UITableViewDelegate, UITableViewD
         indicator.startAnimating()
    
         UserModel.sharedInstance().getStudentLocations(Users.sharedInstance().accountKey!, completionHandler: { (success, errorString) -> Void in
+            
             if (success) {
                 UserModel.sharedInstance().parseStudentInfo({ (success, errorString) -> Void in
                     (success: success, errorString: errorString)
                 })
             } else {
-                (success: false, errorString: "Failure to connect.")
-                self.indicator.stopAnimating()
+                self.displayMessageBox("Error")
             }
         })
-        
         tableView.reloadData()
         indicator.stopAnimating()
     }
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-

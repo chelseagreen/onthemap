@@ -19,11 +19,9 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
         
         mapView.delegate = self
         loadMap()
-
     }
     
     // MARK: MKMapViewDelegate
-    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
@@ -45,9 +43,6 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
         UIApplication.sharedApplication().openURL(link.URL!)
     }
 
-    func refreshMapView() {
-    }
-    
     @IBAction func refreshLocationData(sender: UIBarButtonItem) {
         indicator.startAnimating()
         
@@ -60,14 +55,11 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
                     (success: success, errorString: errorString)
                 })
             } else {
-                (success: false, errorString: "Failure to connect.")
-                self.indicator.stopAnimating()
+                self.displayMessageBox("Error")
             }
         })
-        
         loadMap()
         indicator.stopAnimating()
-        
     }
 
     func loadMap(success: Bool = true) {
@@ -83,16 +75,4 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
                 }
         }
     }
-    
-    func geoloadingStart() {
-     //TODO: add geoloading start / finish notification
-    }
 }
-
-
-
-
-
-
-    
-

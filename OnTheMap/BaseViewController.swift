@@ -23,7 +23,7 @@ class BaseViewController: UIViewController {
         navigationItem.setRightBarButtonItems([newPin, refresh], animated: false)
         navigationItem.setLeftBarButtonItems([logout], animated: false)
         
-        indicator.color = UIColor.orangeColor()
+        indicator.color = UIColor.blackColor()
         indicator.frame = CGRectMake(0, 0, 10, 10)
         indicator.center = self.view.center
         self.view.addSubview(indicator)
@@ -53,23 +53,3 @@ class BaseViewController: UIViewController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

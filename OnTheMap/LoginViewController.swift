@@ -86,17 +86,3 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

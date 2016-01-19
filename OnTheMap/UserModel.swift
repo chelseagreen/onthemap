@@ -199,14 +199,3 @@ class UserModel: NSObject {
         return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
