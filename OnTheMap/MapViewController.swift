@@ -55,7 +55,7 @@ class MapViewController: BaseViewController, MKMapViewDelegate {
                     (success: success, errorString: errorString)
                 })
             } else {
-                self.displayMessageBox("Error")
+                self.displayMessageBox("Unable to connect.")
             }
         })
         loadMap()

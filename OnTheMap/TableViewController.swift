@@ -52,7 +52,7 @@ class TableViewController: BaseViewController, UITableViewDelegate, UITableViewD
                     (success: success, errorString: errorString)
                 })
             } else {
-                self.displayMessageBox("Error")
+                self.displayMessageBox("Unable to connect.")
             }
         })
         tableView.reloadData()

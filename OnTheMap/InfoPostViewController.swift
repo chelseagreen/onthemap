@@ -43,7 +43,7 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         linkTextField.hidden = true
         locationView.hidden = true
         
-        indicator.color = UIColor.orangeColor()
+        indicator.color = UIColor.blackColor()
         indicator.frame = CGRectMake(0, 0, 10, 10)
         indicator.center = self.view.center
         self.view.addSubview(indicator)
@@ -76,7 +76,8 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         
         geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
                 if let _ = error {
-                    self.displayMessageBox("Unable to Locate")
+                    self.displayMessageBox("Unable to Locate.")
+                    self.indicator.stopAnimating()
                 } else {
                     if let placemark = placemarks?[0] as? CLPlacemark? {
                         self.locationView.addAnnotation(MKPlacemark(placemark: placemark!))
@@ -92,10 +93,10 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
                         self.submitPinButton.hidden = false
                         self.linkTextField.hidden = false
                         self.locationView.hidden = false
+                        self.indicator.stopAnimating()
                     }
                 }
             })
-        indicator.stopAnimating()
         }
 
     @IBAction func submitNewPin(sender: UIButton) {
@@ -110,11 +111,12 @@ class InfoPostViewController: UIViewController, UITextFieldDelegate {
         UserModel.sharedInstance().addNewPin(locationTextField.text!, mediaURL: linkTextField.text!, latitude: coord.latitude, longitude: coord.longitude) { (success, errorString) -> Void in
             if (success) {
                 self.dismissViewControllerAnimated(true, completion: nil)
+                self.indicator.stopAnimating()
             } else {
                 self.displayMessageBox("Error")
+                self.indicator.stopAnimating()
             }
         }
-        indicator.stopAnimating()
     }
 
     func displayMessageBox(message:String){
